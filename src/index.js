@@ -5,6 +5,7 @@ import cors from 'cors';
 import contactRoutes from './routes/contactRoute.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
+import blogRoutes from './routes/blogRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,9 +18,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/products', productRoutes);
-// app.use('/uploads', express.static('uploads'));
+app.use('/api/blogs', blogRoutes);
 app.use('/api/contacts', contactRoutes);
 
 app.use('/file', express.static(path.join(__dirname, '../', 'public/temp')));
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`)); 
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
