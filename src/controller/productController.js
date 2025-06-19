@@ -4,10 +4,10 @@ import Product from '../models/productModel.js';
 
 export const createProduct = async (req, res) => {
   try {
-    const imagePaths = req.files.map(
-      (file) =>
-        `${config.NODE_ENV !== 'development' ? config.IMAGE_URL : config.LOCAL_IMAGE_URL}/${file.filename}`
-    );
+    const imagePaths = req.file
+      ? `${config.NODE_ENV !== 'development' ? config.IMAGE_URL : config.LOCAL_IMAGE_URL}/${req.file.filename}`
+      : null;
+
     const product = new Product({
       ...req.body,
       images: imagePaths,
