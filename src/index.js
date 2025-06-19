@@ -22,4 +22,4 @@ app.use('/api/contacts', contactRoutes);
 
 app.use('/file', express.static(path.join(__dirname, '../', 'public/temp')));
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`)); 
