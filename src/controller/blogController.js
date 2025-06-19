@@ -7,7 +7,6 @@ export const createBlog = async (req, res) => {
     const imageUrl = req.file
       ? `${config.NODE_ENV !== 'development' ? config.IMAGE_URL : config.LOCAL_IMAGE_URL}/${req.file.filename}`
       : null;
-
     const blog = new Blog({
       ...req.body,
       coverImage: imageUrl,
