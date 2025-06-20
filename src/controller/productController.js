@@ -95,7 +95,6 @@ export const updateProduct = async (req, res) => {
   }
 };
 
-
 // Delete Product
 export const deleteProduct = async (req, res) => {
   try {

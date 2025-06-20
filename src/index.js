@@ -6,6 +6,7 @@ import contactRoutes from './routes/contactRoute.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
 import blogRoutes from './routes/blogRoutes.js';
+import { LoginUser } from './controller/Auth.controller.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,6 +18,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.post('/api/login', LoginUser);
 app.use('/api/products', productRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/contacts', contactRoutes);
