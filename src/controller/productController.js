@@ -45,14 +45,56 @@ export const getProductById = async (req, res) => {
 // Update Product
 export const updateProduct = async (req, res) => {
   try {
-    const updated = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    // Extract all the fields from req.body
+    const {
+      name,
+      category,
+      shortDescription,
+      longDescription,
+      price,
+      status,
+      dateAdded,
+    } = req.body;
+
+    // Prepare update data object
+    const updateData = {
+      name,
+      category,
+      shortDescription,
+      longDescription,
+      price,
+      status,
+      dateAdded,
+    };
+
+    // Handle images: if files uploaded, update images path array
+    if (req.files && req.files.length > 0) {
+      // Using your config URLs depending on env
+      const baseUrl =
+        config.NODE_ENV !== 'development'
+          ? config.IMAGE_URL
+          : config.LOCAL_IMAGE_URL;
+
+      // Map all uploaded files to full URLs
+      updateData.images = req.files.map(
+        (file) => `${baseUrl}/${file.filename}`
+      );
+    }
+
+    // Update product document with new data
+    const updated = await Product.findByIdAndUpdate(req.params.id, updateData, {
       new: true,
     });
+
+    if (!updated) return res.status(404).json({ message: 'Product not found' });
+
     res.json(updated);
   } catch (err) {
+    console.error(err.message);
     res.status(400).json({ error: err.message });
   }
 };
+
 
 // Delete Product
 export const deleteProduct = async (req, res) => {
