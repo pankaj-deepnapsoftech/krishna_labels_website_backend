@@ -22,7 +22,16 @@ export const createBlog = async (req, res) => {
 // Get All Blogs
 export const getBlogs = async (req, res) => {
   try {
-    const blogs = await Blog.find().sort({ dateAdded: -1 });
+    const { page, limit } = req.query;
+    const currentPage = parseInt(page) || 1;
+    const pageSize = parseInt(limit) || 10;
+    const skip = (currentPage - 1) * pageSize;
+
+    const blogs = await Blog.find()
+      .sort({ _id: -1 })
+      .skip(skip)
+      .limit(pageSize);
+
     res.json(blogs);
   } catch (err) {
     res.status(500).json({ error: err.message });
