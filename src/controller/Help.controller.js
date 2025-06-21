@@ -28,7 +28,7 @@ export const GetHelp = AsyncHandler(async (req, res) => {
   const { page, limit } = req.query;
   const pages = parseInt(page) || 1;
   const limits = parseInt(limit) || 10;
-  const skip = (pages - 1) * limits;
+  const skip = (pages - 1) * limits; 
 
   const data = await HelpAndQuiteModal.find({ type: 'Help' })
     .sort({ _id: -1 })

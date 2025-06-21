@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { AsyncHandler } from '../utils/AsyncHandler.js';
 import { config } from '../config/env.config.js';
+import Product from '../models/productModel.js';
 
 export const LoginUser = AsyncHandler(async (req, res) => {
   const { email, password } = req.body;
@@ -27,3 +28,11 @@ export const LoginUser = AsyncHandler(async (req, res) => {
     token,
   });
 });
+
+
+
+
+
+
+
+
