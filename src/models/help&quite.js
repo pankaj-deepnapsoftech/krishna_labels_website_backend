@@ -5,6 +5,7 @@ const HelpAndQuiteSchema = new Schema({
   mobile: { type: String, Required: true },
   question: { type: String },
   message: { type: String },
+  dateAdded: { type: Date, default: Date.now },
   type: { type: String, required: true, enum: ['Help', 'Quites'] },
 });
 
