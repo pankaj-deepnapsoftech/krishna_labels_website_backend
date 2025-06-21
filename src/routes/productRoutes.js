@@ -11,7 +11,6 @@ import {
 
 const router = express.Router();
 
-
 router.post('/', upload.single('images'), createProduct);
 router.get('/', getProducts);
 router.get('/:id', getProductById);

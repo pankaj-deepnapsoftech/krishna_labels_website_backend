@@ -37,11 +37,22 @@ export const DashboardCardData = AsyncHandler(async (req, res) => {
   const products = await Product.find().countDocuments();
   const product_quotes = await Quote.find().countDocuments();
   const contacts = await Contact.find().countDocuments();
-  const Quick_Quotes = await HelpAndQuiteModal.find({type:"Quites"}).countDocuments();
-  const Help_Enquiries = await HelpAndQuiteModal.find({type:"Help"}).countDocuments();
-   const blog = await Blog.find().countDocuments();
+  const Quick_Quotes = await HelpAndQuiteModal.find({
+    type: 'Quites',
+  }).countDocuments();
+  const Help_Enquiries = await HelpAndQuiteModal.find({
+    type: 'Help',
+  }).countDocuments();
+  const blog = await Blog.find().countDocuments();
   return res.status(200).json({
     message: 'Dashboard Card data',
-    data: { products, product_quotes, contacts,Quick_Quotes ,Help_Enquiries ,blog},
+    data: {
+      products,
+      product_quotes,
+      contacts,
+      Quick_Quotes,
+      Help_Enquiries,
+      blog,
+    },
   });
 });
