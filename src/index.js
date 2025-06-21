@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 import path from 'path';
 import blogRoutes from './routes/blogRoutes.js';
 import { LoginUser } from './controller/Auth.controller.js';
-import HelpRoutes from "./routes/helpRoutes.js";
+import HelpRoutes from './routes/helpRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
