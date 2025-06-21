@@ -13,7 +13,7 @@ import quoteRoutes from './routes/quoteRoutes.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const PORT = 5000;
+const PORT = 8089;
 connectDB();
 
 const app = express();
@@ -27,7 +27,7 @@ app.use('/api/contacts', contactRoutes);
 app.use('/api/help', HelpRoutes);
 app.use('/api/quotes', quoteRoutes);
 
-app.use('/api/dashboard',DashboardCardData);
+app.use('/api/dashboard', DashboardCardData);
 
 app.use('/file', express.static(path.join(__dirname, '../', 'public/temp')));
 
