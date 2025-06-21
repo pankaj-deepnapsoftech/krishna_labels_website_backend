@@ -14,7 +14,16 @@ export const createContact = async (req, res) => {
 // GET all
 export const getContacts = async (req, res) => {
   try {
-    const contacts = await Contact.find().sort({ dateAdded: -1 });
+    const { page, limit } = req.query;
+    const currentPage = parseInt(page) || 1;
+    const pageSize = parseInt(limit) || 10;
+    const skip = (currentPage - 1) * pageSize;
+
+    const contacts = await Contact.find()
+      .sort({ _id: -1 })
+      .skip(skip)
+      .limit(pageSize);
+
     res.json(contacts);
   } catch (err) {
     res.status(500).json({ error: err.message });
