@@ -1,10 +1,10 @@
 import Quote from '../models/quoteModel.js';
 import Product from '../models/productModel.js';
 
-// POST - Create quote
-export const createQuote = async (req, res) => {
-  try {
-    const { productId, quantity, name, email, phone, address } = req.body;
+  // POST - Create quote
+  export const createQuote = async (req, res) => {
+    try {
+      const { productId, quantity, name, email, phone, address } = req.body;
 
     const product = await Product.findById(productId);
     if (!product) return res.status(404).json({ message: 'Product not found' });
