@@ -43,11 +43,33 @@ export const getBlogById = async (req, res) => {
 // Update Blog
 export const updateBlog = async (req, res) => {
   try {
-    const updated = await Blog.findByIdAndUpdate(req.params.id, req.body, {
+    const { title, author, content, tags, status } = req.body;
+
+    const updateData = {
+      title,
+      author,
+      content,
+      tags,
+      status,
+    };
+
+    if (req.file) {
+      // If an image is uploaded, include its path
+      const baseUrl =
+        config.NODE_ENV !== 'development'
+          ? config.IMAGE_URL
+          : config.LOCAL_IMAGE_URL;
+
+      updateData.coverImage = `${baseUrl}/${req.file.filename}`;
+    }
+
+    const updated = await Blog.findByIdAndUpdate(req.params.id, updateData, {
       new: true,
     });
+
     res.json(updated);
   } catch (err) {
+    console.error(err);
     res.status(400).json({ error: err.message });
   }
 };
