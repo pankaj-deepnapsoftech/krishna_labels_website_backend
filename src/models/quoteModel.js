@@ -14,7 +14,7 @@ const quoteSchema = new mongoose.Schema({
   phone: { type: String },
   address: { type: String },
   dateAdded: { type: Date, default: Date.now },
-  status: { type: String, default: 'Pending' },
+  remark: { type: String },
 });
 
 const Quote = mongoose.model('Quote', quoteSchema);

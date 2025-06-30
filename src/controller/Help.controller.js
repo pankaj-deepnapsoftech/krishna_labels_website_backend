@@ -70,3 +70,25 @@ export const DeleteHelp = AsyncHandler(async (req, res) => {
     message: 'data deleted Successful',
   });
 });
+
+export const UpdateRemark = AsyncHandler(async (req, res) => {
+  const { id } = req.params;
+  const { remark } = req.body;
+
+  const updated = await HelpAndQuiteModal.findByIdAndUpdate(
+    id,
+    { remark },
+    { new: true }
+  );
+
+  if (!updated) {
+    return res.status(404).json({
+      message: 'Data not found',
+    });
+  }
+
+  return res.status(200).json({
+    message: 'Remark updated successfully',
+    data: updated,
+  });
+});
