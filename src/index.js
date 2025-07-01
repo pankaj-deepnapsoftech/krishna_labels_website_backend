@@ -9,6 +9,7 @@ import blogRoutes from './routes/blogRoutes.js';
 import { DashboardCardData, LoginUser } from './controller/Auth.controller.js';
 import HelpRoutes from './routes/helpRoutes.js';
 import quoteRoutes from './routes/quoteRoutes.js';
+import testimonialRoutes from './routes/testimonialRoute.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -26,6 +27,7 @@ app.use('/api/blogs', blogRoutes);
 app.use('/api/contacts', contactRoutes);
 app.use('/api/help', HelpRoutes);
 app.use('/api/quotes', quoteRoutes);
+app.use('/api/testimonials', testimonialRoutes);
 
 app.use('/api/dashboard', DashboardCardData);
 
