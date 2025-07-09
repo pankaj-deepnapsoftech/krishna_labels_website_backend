@@ -4,14 +4,7 @@ import Product from '../models/productModel.js';
 
 export const createProduct = async (req, res) => {
   try {
-    const imagePaths = req.file
-      ? `${config.NODE_ENV !== 'development' ? config.IMAGE_URL : config.LOCAL_IMAGE_URL}/${req.file.filename}`
-      : null;
-
-    const product = new Product({
-      ...req.body,
-      images: imagePaths,
-    });
+    const product = new Product(req.body);
 
     const saved = await product.save();
     res.status(201).json(saved);
@@ -63,6 +56,7 @@ export const updateProduct = async (req, res) => {
       price,
       status,
       dateAdded,
+      images,
     } = req.body;
 
     // Prepare update data object
@@ -74,21 +68,22 @@ export const updateProduct = async (req, res) => {
       price,
       status,
       dateAdded,
+      images,
     };
 
     // Handle images: if files uploaded, update images path array
-    if (req.files && req.files.length > 0) {
-      // Using your config URLs depending on env
-      const baseUrl =
-        config.NODE_ENV !== 'development'
-          ? config.IMAGE_URL
-          : config.LOCAL_IMAGE_URL;
+    // if (req.files && req.files.length > 0) {
+    //   // Using your config URLs depending on env
+    //   // const baseUrl =
+    //   //   config.NODE_ENV !== 'development'
+    //   //     ? config.IMAGE_URL
+    //   //     : config.LOCAL_IMAGE_URL;
 
-      // Map all uploaded files to full URLs
-      updateData.images = req.files.map(
-        (file) => `${baseUrl}/${file.filename}`
-      );
-    }
+    //   // Map all uploaded files to full URLs
+    //   updateData.images = req.files.map(
+    //     (file) => `${baseUrl}/${file.filename}`
+    //   );
+    // }
 
     // Update product document with new data
     const updated = await Product.findByIdAndUpdate(req.params.id, updateData, {

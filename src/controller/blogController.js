@@ -4,12 +4,8 @@ import { config } from '../config/env.config.js';
 // Create Blog
 export const createBlog = async (req, res) => {
   try {
-    const imageUrl = req.file
-      ? `${config.NODE_ENV !== 'development' ? config.IMAGE_URL : config.LOCAL_IMAGE_URL}/${req.file.filename}`
-      : null;
     const blog = new Blog({
       ...req.body,
-      coverImage: imageUrl,
     });
 
     const saved = await blog.save();
@@ -52,7 +48,7 @@ export const getBlogById = async (req, res) => {
 // Update Blog
 export const updateBlog = async (req, res) => {
   try {
-    const { title, author, content, tags, status } = req.body;
+    const { title, author, content, tags, status, coverImage } = req.body;
 
     const updateData = {
       title,
@@ -60,17 +56,8 @@ export const updateBlog = async (req, res) => {
       content,
       tags,
       status,
+      coverImage,
     };
-
-    if (req.file) {
-      // If an image is uploaded, include its path
-      const baseUrl =
-        config.NODE_ENV !== 'development'
-          ? config.IMAGE_URL
-          : config.LOCAL_IMAGE_URL;
-
-      updateData.coverImage = `${baseUrl}/${req.file.filename}`;
-    }
 
     const updated = await Blog.findByIdAndUpdate(req.params.id, updateData, {
       new: true,
