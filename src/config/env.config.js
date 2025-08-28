@@ -1,7 +1,13 @@
 /* eslint-disable no-undef */
 import dotenv from 'dotenv';
 
-dotenv.config();
+const result = dotenv.config();
+
+if (result.error) {
+  console.error('Error loading .env file:', result.error);
+} else {
+  console.log('Environment variables loaded successfully');
+}
 
 class Config {
   NODE_ENV;
